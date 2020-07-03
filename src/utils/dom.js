@@ -9,7 +9,7 @@ if (global.getComputedStyle && DOMMatrix) {
   getTranslateX = (node) => {
     // matrix(1, 0, 0, 1, -100, 0)
     const transform = global.getComputedStyle(node, null).getPropertyValue('transform');
-    return -Number(transform.match(/\d+/g)[4]);
+    return Number(transform.match(/[+-]?\d+/g)[4]);
   };
 }
 
