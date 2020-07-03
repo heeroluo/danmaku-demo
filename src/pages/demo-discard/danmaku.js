@@ -28,7 +28,7 @@ export default class Danmaku extends PauseDanmaku {
       if (!node) {
         // 超时丢弃弹幕
         if (this._allowDiscard &&
-          this._queue.length > this._tracks.length &&
+          this._queue.length > this._tracks.length * 2 &&
           Date.now() - data.timestamp > this._allowDiscard
         ) {
           this._queue.splice(i, 1);
