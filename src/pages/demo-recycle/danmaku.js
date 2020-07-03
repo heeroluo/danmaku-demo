@@ -13,7 +13,7 @@ export default class Danmaku extends DiscardDanmaku {
     if (this._nodeRecycleBin.length <= this._tracks.length * 2) {
       node.removeAttribute('data-y');
       node.removeAttribute('data-id');
-      node.ontransitionstart = node.ontransitionend = null;
+      node.ontransitionend = null;
       this._nodeRecycleBin.push(node);
     } else {
       this._container.removeChild(node);
@@ -38,9 +38,6 @@ export default class Danmaku extends DiscardDanmaku {
     node.innerText = data.msg;
     node.style.color = data.fontColor;
     node.style.fontSize = data.fontSize + 'px';
-    node.ontransitionstart = () => {
-      data.startTime = Date.now();
-    };
     node.ontransitionend = () => {
       // node.style.transition 为空时，是暂停状态，不用移除
       if (node.style.transition) {
