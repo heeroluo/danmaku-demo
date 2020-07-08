@@ -71,6 +71,9 @@ export default class Danmaku extends PauseDanmaku {
         node.style.top = data.y[0] * this._trackSize + 'px';
         node.style.transition = `transform ${data.rollTime}s linear`;
         node.style.transform = `translateX(-${data.totalDistance}px)`;
+        node.addEventListener('transitionstart', () => {
+          data.startTime = Date.now();
+        }, false);
         node.addEventListener('transitionend', () => {
           // node.style.transition 为空时，是暂停状态，不用移除
           if (node.style.transition) {
@@ -78,6 +81,8 @@ export default class Danmaku extends PauseDanmaku {
             this._container.removeChild(node);
           }
         }, false);
+
+        data.startTime = Date.now() + 80;
 
       } else {
         // 当前弹幕要排队，继续处理下一条

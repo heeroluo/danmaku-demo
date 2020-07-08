@@ -97,7 +97,7 @@ export default class Danmaku {
     if (!this._renderTimer) { this._render(); }
   }
 
-  // 把弹幕数据加到合适的轨道
+  // 把弹幕数据放置到合适的轨道
   _addToTrack(data) {
     // 单条轨道
     let track;

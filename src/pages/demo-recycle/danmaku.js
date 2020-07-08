@@ -99,6 +99,9 @@ export default class Danmaku extends DiscardDanmaku {
         node.style.top = data.y[0] * this._trackSize + 'px';
         node.style.transition = `transform ${data.rollTime}s linear`;
         node.style.transform = `translateX(-${data.totalDistance}px)`;
+
+        data.startTime = Date.now() + 80;
+
       } else {
         // 当前弹幕要排队，继续处理下一条
         i++;
