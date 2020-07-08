@@ -5,7 +5,8 @@ import init from '@/utils/init';
 const container = document.getElementById('container');
 
 const danmaku = new Danmaku({
-  container
+  container,
+  allowDiscard: true
 });
 
 init(danmaku, container);
