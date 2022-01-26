@@ -1,12 +1,17 @@
 const path = require('path');
 const glob = require('glob');
+const ESLintPlugin = require('eslint-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const isDevMode = process.env.NODE_ENV !== 'production';
 
 // 多页打包，记录每个页面的 entry 和 htmlWebpackPlugin
 const entries = {};
-const htmlWebpackPlugins = [];
+const plugins = [
+  new ESLintPlugin({
+    extensions: ['mjs', 'js']
+  }),
+];
 
 // 找到每个 html 文件
 const pagePath = path.resolve(__dirname, '../src/pages');
@@ -20,7 +25,7 @@ htmlPaths.forEach((htmlPath) => {
 
   const jsPath = filePath.replace(/\.html$/, '.js');
   entries[entryKey] = jsPath;
-  htmlWebpackPlugins.push(
+  plugins.push(
     new HtmlWebpackPlugin({
       filename: isDevMode ? htmlPath : '../' + htmlPath,
       template: filePath,
@@ -69,14 +74,6 @@ module.exports = {
       },
 
       {
-        test: /\.m?js$/,
-        exclude: [
-          path.resolve(__dirname, '../node_modules')
-        ],
-        loader: 'eslint-loader'
-      },
-
-      {
         test: /\.css$/,
         use: [
           'style-loader',
@@ -86,5 +83,5 @@ module.exports = {
     ]
   },
 
-  plugins: htmlWebpackPlugins
+  plugins
 };
